@@ -1,0 +1,76 @@
+Roomies Registration
+
+
+/
+> Email
+> Password
+> Confirm Password
+> Username
+
+/ -POST-> /confirm
+> Username (Hidden)
+> Confirm code
+
+/confirm -GET-> /confirm?user=$0&conf=$1
+/confirm -300-> /complete-registration
+
+/complete-registration
+>First Name
+>Last Name
+>Date of birth (+store the age)
+>University
+>Nationality
+>
+
+
+
+
+
+
+//$user
+//$targetUser
+
+SELECT * FROM rprofiles
+  $targetUser
+
+
+
+if (temp login)
+  $tempUserName = $tempUser->name;
+elseif get user
+  $tempUsername = get user;
+else 404
+
+if (isset($tempUsername))
+{
+  if ($_GET['conf'])
+    if (user + conf match)
+      login, redirect, exit;
+    else
+      $showError;
+  else if (!logged_in && !user_exists)
+          404, exit;
+}
+
+show the input and if($showError);
+
+
+
+IDS_PERCENTAGES 
+
+
+karray( $user1, $user2, ...)
+
+filter (smoking = $value)
+$filters[0] = array('$value' );
+
+foreach ($array as $user)
+{
+  $allow = true;
+  foreach ($filters as $key => $value)
+    if !(in_array($value, $user->filter($key)))
+       $allow = false;
+
+  if($allow)
+     push($filtered_array, $user);
+}

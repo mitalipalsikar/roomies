@@ -1,0 +1,33 @@
+# Introducing the room-mate matching service (primary feature)
+Right, so the feature I'm introducing---and the primary feature of the website---is the room-mate-matching service.
+
+# Why it's useful
+A feature is only useful if it solves a problem.
+So what's the problem? People looking for accommodation often want to live with a room-mate. Finding suitable room-mates can be hard.
+We hope to solve this problem by helping them find suitable room-mates.
+This is useful for anyone who needs a room-mate, though it will be aimed at people attending university the following year.
+
+# What it does
+This feature checks the compatibility of users, based on their profiles. (Slide side note: What else is it going to base it on?)
+And then suggests them to each other. They will then add each other and (hopefully) they'll become friends and eventually room-mates.
+
+# User profiles
+Before you add someone, you'll probably want to know a little about them.
+Now, the compatibility algorithm isn't going to be perfect. Maybe the other person is the same as you in every way... but has a pet spider.
+User profiles are great for this.
+Enough information would be shared on a user's profile, so that you can determine whether or not to add them to your contact list.
+
+# Adding and deleting people
+This list works in a similar fashion to social networking sites; you add people and talk to them.
+The functional difference is that you won't be adding people you already know, but rather, people that the site suggests.
+Also, you won't be adding them so that you can post cat videos to them. You'll be adding them to get to know them.
+This puts much more emphasis on adding and removing contacts than the likes of social networking sites.
+
+# Messaging service
+Once you've added a few people, you'll want to talk to them. So we need a way of messaging each other.
+For the time being, that will simply be a inbox. In the future, we would hope to have an instant chat. It's not important, but it would be useful.
+With the feature that Liam will later introduce, we could expand instant chat to be very powerful.
+
+# Another audience
+As previously stated, the website will be aimed at people attending university the following year.
+Whether or not they're looking for room-mates, these people will be looking for accommodation. And so, Elnur will introduce the next feature.

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Welcome to Roomies</title>
+	<link rel="stylesheet" type="text/css" href="media/css/style.css">
+</head>
+<body class="body" onload="window.location.hash||signin.email.focus()">
+	<!-- Top bar -->
+	<div class="header">
+		<a href="index.html" class="logo-link">
+			<img src="media/img/logo.svg" alt="Roomies" class="logo-img">
+		</a>
+	</div>
+	<div class="header-space"></div>
+	<!-- Main content -->
+	<div class="main">
+		<!-- Hidden title -->
+		<div class="not-mobile banner">
+			<header>
+				<h1 class="h1">Welcome to Roomies</h1>
+				<p class="text">Find the perfect room-mate.</p>
+			</header>
+		</div>
+		<!-- Sign in / Register -->
+		<div class="column-wrapper">
+			<!-- Sign in -->
+			<div class="column-2">
+				<div class="column-box">
+					<div class="box-padding">
+						<h2 class="h2" id="Sign_in">Sign in</h2>
+						<form method="POST" name="signin" onsubmit="return this.email.value?this.password.value?true:(this.password.focus(),false):(this.email.focus(),false)">
+							<input type="email" name="email" placeholder="Email" class="input block" required>
+							<input type="password" name="password" placeholder="Password" class="input block" required pattern=".{6,25}" title="6 to 25 characters">
+							<input type="submit" value="Sign in" class="input-button block">
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- Register -->
+			<div class="column-2">
+				<div class="column-box">
+					<div class="box-padding">
+						<h2 class="h2" id="Register">Register</h2>
+						<form method="POST" name="register" onsubmit="return this.registerEmail.value?this.registerPassword.value?this.registerPassword.value===this.registerConfirmPassword.value?true:(this.registerConfirmPassword.focus(),false):(this.registerPassword.focus(),false):(this.registerEmail.focus(),false)">
+							<input type="email" name="registerEmail" placeholder="Email" class="input block" required>
+							<input type="password" name="registerPassword" placeholder="Password" class="input block" required pattern=".{6,25}" title="6 to 25 characters">
+							<input type="password" name="registerConfirmPassword" placeholder="Confirm Password" class="input block" required pattern=".{6,25}" title="6 to 25 characters">
+							<p class="small-text">By registering, you agree to our
+								<a href="#terms" class="link">Terms</a> and
+								<a href="#privacy" class="link">Privacy Policy</a>, including our
+								<a href="#cookies" class="link">Cookie Use</a>.
+							</p>
+							<input type="submit" value="Register" class="input-button block">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Accommodation Reviews -->
+		<div class="box">
+			<div class="box-padding">
+				<h2 class="h2" id="Accommodation_reviews">Accommodation reviews</h2>
+				<form method="GET">
+					<select name="filter" class="select has-submit" required>
+						<option class="option" value="" selected>Choose a University</option>
+						<option class="option" value="1">University of Manchester</option>
+					</select
+					><input type="submit" value="Filter" class="input-button select-submit">
+					<a href="#" class="link-button float-right">View All</a>
+				</form>
+			</div>
+		</div>
+		<!-- Footer -->
+		<div class="box">
+			<ul class="box-padding footer">
+				<li class="footer-item">Roomies &copy; 2014</li>
+				<li class="footer-item"><a href="#" class="footer-link">About</a></li>
+				<li class="footer-item"><a href="#" class="footer-link">Terms</a></li>
+				<li class="footer-item"><a href="#" class="footer-link">Privacy</a></li>
+				<li class="footer-item"><a href="#" class="footer-link">Cookies</a></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

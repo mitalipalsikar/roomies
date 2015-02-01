@@ -1,0 +1,13 @@
+AddType font/ttf .ttf
+AddType font/woff .woff
+
+# Cache
+ExpiresActive On
+ExpiresByType font/*  "access 1 year"
+ExpiresByType image/* "access 1 year"
+ExpiresByType text/*  "access 1 month"
+ExpiresDefault        "access 1 month"
+
+# Deflate resources
+Options +Includes
+AddOutputFilter INCLUDES;DEFLATE php html css js woff ttf svg
