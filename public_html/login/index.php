@@ -110,7 +110,7 @@ exit();
 
 	<body class = "body">
 
-	<div class = "left-box">
+	<div class = "userp">
 
 		<p class = "h1"> Hello, username! </p>
 		
@@ -118,7 +118,7 @@ exit();
 		
 		
 	    	<ul class = "ul">
-	    		<li class = "link-button"> <a href = "#profile" class = "links">Friend Requests </a></li>
+	    		<li class = "link-box"> <a href = "#profile" class = "links">Friend Requests </a></li>
 	    		<br>
 	    		<li class = "links-box"> <a href = "#profile" class = "links">Messages </a></li>
 	    		<br>
@@ -128,7 +128,7 @@ exit();
 	    </div>
 	</div>
 
-    <div class = "column-box"> 
+    <div class = "searches"> 
     	<p class = "h2">Recent Matches</p> 
 	    <ul class = "search-element">
 	    <li > Whatever #1 </li>
