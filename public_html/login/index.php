@@ -5,7 +5,7 @@ homepage content.
 */
 
 // Includes the init file
-require_once '../../inc/init.php';
+require_once '../inc/init.php';
 // If logged out, show homepage, then exit the script.
 
 /* You may have the following php vars:
