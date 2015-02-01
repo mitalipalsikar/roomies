@@ -109,48 +109,54 @@ exit();
 	</head>
 
 	<body class = "body">
+	<title> Roomies| username</title>
 
-	<div class = "userp">
 
-		<p class = "h1"> Hello, username! </p>
+	<div class = "left-box">
+
+		<p class = "greeting"> Hello, username! </p>
 		
 		<img class = "img" src="profile.jpg" alt="profile picture" style="width:125px;height:125px;" >
 		
 		
 	    	<ul class = "ul">
-	    		<li class = "link-box"> <a href = "#profile" class = "links">Friend Requests </a></li>
+	    	
+	    		<li class = "link-button"> <a href = "#friends" class = "links">Friend Requests </a></li>
 	    		<br>
-	    		<li class = "links-box"> <a href = "#profile" class = "links">Messages </a></li>
+	    		<li class = "link-button"> <a href = "#inbox" class = "links">Messages </a></li>
 	    		<br>
-	    		<li class = "links-box"> <a href = "#profile" class = "links">Review </a></li>
+	    		<li class = "link-button"> <a href = "#reviews" class = "links">Review </a></li>
 	    		<br>
+	    	
 	    	</ul>
 	    </div>
 	</div>
 
     <div class = "searches"> 
-    	<p class = "h2">Recent Matches</p> 
+    	<p class = "titletext">Recent Matches</p> 
 	    <ul class = "search-element">
-	    <li > Whatever #1 </li>
+	    <li class = "box", class = "box-padding"><img class = "profile-picture" src="C:\Users\Mitali\Pictures\16050565160_6b7c524b84_z.jpg" alt="profile picture"> <p class = "text">Whatever #1 </p></li>
 	    <br>
-	    <li> Whatever #2 </li>
+	    <li class = "box", class = "box-padding"> <img class = "profile-picture" src="profile.jpg" alt="profile picture"><p class = "text">Whatever #1 </p> </li>
 	    <br>
 		</ul>
 	</div>
 
     <div class = "reviews"> 
-    	<p class = "h2"> Popular Accommodation </p>
+    	<p class = "titletext"> Popular Accommodation </p>
     	<ul class = "review-element">
-    		<li> Whitworth Park </li>
+    		<li class = "box", class = "box-padding"> Whitworth Park </li>
     		<br>
-    		<li> Dalton-Ellis 	</li>
+    		<li class = "box", class = "box-padding"> Dalton-Ellis</li>
     		<br>
-    		<li> Burkhardt House</li>
+    		<li class = "box", class = "box-padding"> Burkhardt House</li>
     	</ul>
 
     </div>
 </body>
 </html>
+
+
 
 
 
