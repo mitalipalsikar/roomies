@@ -110,33 +110,26 @@ exit();
 
 	<body class = "body">
 
-	<header>
-		<a href="/" class="logo-link" title="Home">
-		<img src="media/img/logo.svg" alt="Roomies" class="logo-img"></a>
-	</header>
-
 	<div class = "left-box">
 
-		<p class = "greeting"> Hello, username! </p>
+		<p class = "h1"> Hello, username! </p>
 		
 		<img class = "img" src="profile.jpg" alt="profile picture" style="width:125px;height:125px;" >
 		
 		
 	    	<ul class = "ul">
-	    		<li class = "link-button">Profile</li>
+	    		<li class = "link-button"> <a href = "#profile" class = "links">Friend Requests </a></li>
 	    		<br>
-	    		<li class = "links-box"> Settings</li>
+	    		<li class = "links-box"> <a href = "#profile" class = "links">Messages </a></li>
 	    		<br>
-	    		<li class = "links-box"> Messages</li>
-	    		<br>
-	    		<li class = "links-box"> Logout</li>
+	    		<li class = "links-box"> <a href = "#profile" class = "links">Review </a></li>
 	    		<br>
 	    	</ul>
 	    </div>
 	</div>
 
-    <div class = "searches"> 
-    	<p class = "titletext">Recent Matches</p> 
+    <div class = "column-box"> 
+    	<p class = "h2">Recent Matches</p> 
 	    <ul class = "search-element">
 	    <li > Whatever #1 </li>
 	    <br>
@@ -146,7 +139,7 @@ exit();
 	</div>
 
     <div class = "reviews"> 
-    	<p class = "titletext"> Popular Accommodation </p>
+    	<p class = "h2"> Popular Accommodation </p>
     	<ul class = "review-element">
     		<li> Whitworth Park </li>
     		<br>
