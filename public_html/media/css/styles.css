@@ -493,29 +493,6 @@
 
 }
 
-/*box for each link */
-.links-box
-{	
-	width: 110px;
-	height: 30 px;
-	float-left;
-	margin-bottom: 5px;
-
-	padding-bottom: 0.6em;
-	background: #e37314;
-}
-
-.links-column
-{
-	margin:0 auto;
-	width: 130px;
-	height: 120px;
-	background: #fff;
-	padding-top: 10px;
-	
-
-}
-
 .left-box
 {
 	width: 160px;
@@ -526,4 +503,92 @@
 	padding-bottom: 10px;
 	padding-left: 8px;
 	padding-right: 8px;
+}
+
+
+.userp
+{
+
+/*box details for user pic*/
+float: left;
+margin: 0 1.5%;
+border-radius: 2px;
+border-width: 1px;
+border-style: solid;
+border-color: #e9e6e5 #e4e0df #d5d1d0;
+background: #fff;
+width: 140 px;
+height:160 px;
+padding-right: 10px;
+margin-bottom: 12px;
+
+}
+
+.searches
+{
+
+float: left;
+width: 50%;
+height: 100%;
+border-radius: 2px;
+/* border: 1px solid #d2c7be; */
+border-width: 1px;
+border-style: solid;
+border-color: #e9e6e5 #e4e0df #d5d1d0;
+background: #fff;
+}
+
+.reviews
+{
+
+width: 30%;
+height: 100%;
+float: right;
+margin-right: 20px;
+border-radius: 2px;
+/* border: 1px solid #d2c7be; */
+border-width: 1px;
+border-style: solid;
+border-color: #e9e6e5 #e4e0df #d5d1d0;
+background: #fff;
+
+
+}
+
+.search-element
+{
+	font-family: 'Open Sans', arial, sans-serif;
+	text-align: left;
+	font-size: 15px;
+	list-style: none;
+	padding-bottom: 10px;
+	padding-left: 30%;
+
+}
+
+.review-element
+{
+	font-family: 'Open Sans', arial, sans-serif;
+	text-align: left;
+	font-size: 20px;
+	list-style: none;
+	padding-bottom: 10px;
+}
+
+.titletext
+{
+
+font-family: 'Open Sans', arial, sans-serif;
+text-decoration: none;
+font-weight: bold;
+text-align: center;
+padding-bottom: 20px;
+}
+
+.nametext
+{
+font-family: 'Open Sans', arial, sans-serif;
+text-decoration: none;
+text-align: center;
+
 }
