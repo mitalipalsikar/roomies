@@ -1,138 +1,195 @@
 <?php
 /*
-Set REQUIRE_SESSION (false). Set REQUIRE_NO_SESSION (true). Initalise. 
-Receive by POST 'email' and 'password'
-Check the log table to see if brute-force attack (more than 5 wrong pass in last 2 hours)
--> if it is, show error (possibly blocking the account for time/sending email)
-Check the password against the db pass
--> if it's valid, log in
--> if not valid, record in log table
+Do not initialise REQUIRE_SESSION. We do not need to check that. Initialise. Output
+homepage content.
 */
 
-define('REQUIRE_SESSION', FALSE);
-require_once '../../inc/init.php';
-echo "shit";
-// If these are set, proceed. Else, something wrong happened
-if(isset($_POST['login'], $_POST['password']))
+// Includes the init file
+require_once '../inc/init.php';
+// If logged out, show homepage, then exit the script.
+
+/* You may have the following php vars:
+
+-If error during register/login:
+>>>> $_GET('err') can be
+-> 'confpass', if confirm password does not match with password
+-> 'emailexists' if email already used
+-> 'invalid' if the user inserted invalid characters
+-> 'locked' if the user got the pass wrong >= 5 times in last 2 hrs (acc locked)
+---> 't', the time in seconds until acc wil unlock
+-> 'incorrect' if the pass/email are incorrect OR if the email does not exist
+
+>>>> $ioStatus can be
+-> 'in', if the user is logged in
+-> 'out', if the user is not logged in
+*/
+
+// Include the head
+$title = "Welcome Roomies";
+$dots = "";
+$home = 1;
+require_once __ROOT__."/inc/html/head.php";
+require_once __ROOT__."/inc/html/header.$ioStatus.php";
+
+if(!LOGGED_IN)
 {
-
-  $login = htmlentities($_POST['login']);
-  $password = htmlentities(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
-
-  // Check if valid chars
-  if($login != $_POST['login'] || $password != $_POST['password'])
-  {
-    header("Location: ../?err=invalid");
-    exit();
-  }
-
-  /*
-  Check if brute-force attack. If user got the pass wrong over 5 times in last two hours
-  then something is not right. So it will throw an error.
-  */
-  $stmt = $con->prepare("SELECT log_time FROM rlog WHERE log_email = '$login' 
-                          OR log_username = '$login'  LIMIT 1 OFFSET 4");
-  $stmt->execute();
-  $stmt->bindColumn(1, $time);
-  $stmt->fetch();
-
-
-  if($stmt->rowCount() == 1 && (strtotime($time) + 7200 > time()))
-  {
-    // Error acc blocked, must pass at least 2 hrs
-    $stmt = null;
-    $timeLeft = strtotime($time) + 7200 - time();
-    header("Location: ../?err=locked&t=".$timeLeft);
-    exit();
-  }
-
-  // Check the pass against the one in db. If incorrect, will be logged
-  $stmt = $con->prepare("SELECT user_id, user_pass, username, user_salt FROM rusers 
-                          WHERE user_email = '$login' OR username = '$login' ");
-  $stmt->execute();
-  $stmt->bindColumn(1, $id);
-  $stmt->bindColumn(2, $dbPassword);
-  $stmt->bindColumn(3, $username);
-  $stmt->bindColumn(4, $salt);
-  $stmt->fetch();
-
-  if(($stmt->rowCount() == 1) && (hash('sha256', $password.$salt) == $dbPassword))
-  {
-    // Successfully logged in
-    $_SESSION['user']['id'] = $id;
-    $_SESSION['user']['email'] = $email;
-    $_SESSION['user']['username'] = $username;
-
-    // Check whether the user has completed his profile
-    $stmt = $con->prepare("SELECT profile_filter_id FROM rdetails WHERE profile_filter_id = $id");
-    $stmt->execute();
-    $stmt->bindColumn(1, $profileId);
-    $stmt->fetch();
-
-    if(!$stmt->rowCount())
-    {
-      // The user has to complete his profile
-      $stmt = null;
-      $_SESSION['notComplete'] = true;
-      header("Location: ../complete-register/");
-      exit();
-    }
-
-    $stmt = null;
-    header("Location: ../");
-    exit();
-  }
-  else
-  {
-    if($stmt->rowCount() == 1)
-    {
-      // The pass is wrong so log it
-      $timeStamp = gmdate("Y-m-d H:i:s", time());
-      $stmt = $con->prepare("INSERT INTO rlog (log_email, log_time, log_username) 
-                              VALUES ('$email', '$timeStamp', '$username')");
-      $stmt->execute();
-
-      $stmt = null;
-      header("Location: ../?err=incorrect1");
-      exit();
-    }
-    else
-    {
-      // No email was found. Check temp users
-      $stmt = $con->prepare("SELECT temp_username, temp_pass, temp_salt, conf, temp_email 
-                              FROM rtempusers
-                              WHERE temp_email = '$login' OR temp_username = '$login'");
-      $stmt->execute();
-      $stmt->bindColumn(1, $tempUsername);
-      $stmt->bindColumn(2, $tempDbPassword);
-      $stmt->bindColumn(3, $tempSalt);
-      $stmt->bindColumn(4, $confCode);
-      $stmt->bindColumn(5, $tempEmail);
-      $stmt->fetch();
-
-      if(($stmt->rowCount() == 1) && (hash('sha256', $password.$tempSalt) == $tempDbPassword))
-      {
-        // The user is in temp table, so send him to conf page
-        $_SESSION['tempUser']['username'] = $tempUsername;
-        $_SESSION['tempUser']['conf'] = $confCode;
-        $_SESSION['tempUser']['email'] = $tempEmail;
-
-        $stmt = null;
-        header("Location: ../confirm/");
-        exit();
-      }
-      else
-      {
-        $stmt = null;
-        header("Location: ../?err=incorrect2");
-        exit();
-      }
-    }
-  }
-}
-else
-{
-  // Should go to 404
-  echo "fuck not found";
-}
 ?>
+	<!-- Main content -->
+	<div class="main">
+		<!-- Hidden title -->
+		<div class="not-mobile banner">
+			<header>
+				<h1 class="h1">Welcome to Roomies</h1>
+				<p class="text">Find the perfect room-mate.</p>
+			</header>
+		</div>
+		<!-- Sign in / Register -->
+		<div class="column-wrapper">
+			<!-- Sign in -->
+			<div class="column-2">
+				<div class="column-box">
+					<div class="box-padding">
+						<h2 class="h2" id="Sign_in">Sign in</h2>
+						<form method="POST" name="signin" action="./login/index.php" onsubmit="return this.email.value?this.password.value?true:(this.password.focus(),false):(this.email.focus(),false)">
+							<input type="text" name="login" placeholder="Email/Username" class="input block" required>
+							<input type="password" name="password" placeholder="Password" class="input block" required pattern=".{6,25}" title="6 to 25 characters">
+							<input type="submit" value="Sign in" class="input-button block">
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- Register -->
+			<div class="column-2">
+				<div class="column-box">
+					<div class="box-padding">
+						<h2 class="h2" id="Register">Register</h2>
+						<form method="POST" name="register" action="./confirm/" onsubmit="return this.registerEmail.value?this.registerPassword.value?this.registerPassword.value===this.registerConfirmPassword.value?true:(this.registerConfirmPassword.focus(),false):(this.registerPassword.focus(),false):(this.registerEmail.focus(),false)">
+							<input type="email" name="registerEmail" placeholder="Email" class="input block" required>
+							<input type="password" name="registerPassword" placeholder="Password" class="input block" required pattern=".{6,25}" title="6 to 25 characters">
+							<input type="password" name="registerConfirmPassword" placeholder="Confirm Password" class="input block" required pattern=".{6,25}" title="6 to 25 characters">
+              <input type="text" name="registerUsername" placeholder="Username" class="input block" required pattern=".{4,25}" title="4 to 25 characters">
+							<p class="small-text">By registering, you agree to our
+								<a href="#terms" class="link">Terms</a> and
+								<a href="#privacy" class="link">Privacy Policy</a>, including our
+								<a href="#cookies" class="link">Cookie Use</a>.
+							</p>
+							<input type="submit" value="Register" class="input-button block">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Accommodation Reviews -->
+		<div class="box">
+			<div class="box-padding">
+				<h2 class="h2" id="Accommodation_reviews">Accommodation reviews</h2>
+				<form method="GET">
+					<select name="filter" class="select has-submit" required>
+						<option class="option" value="" selected>Choose a University</option>
+						<option class="option" value="1">University of Manchester</option>
+					</select
+					><input type="submit" value="Filter" class="input-button select-submit">
+					<a href="#" class="link-button float-right">View All</a>
+				</form>
+			</div>
+		</div>
+<?php require_once __ROOT__."/inc/html/footer.php";?>
+<?php
+exit();
+}// if(!LOGGED_IN)
+
+
+// Else, we show the homepage for logged in users
+?>
+<!--html code for logged in homepage-->
+
+	<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="styles.css">
+	</head>
+
+	<body class = "body">
+
+	<header>
+		<a href="/" class="logo-link" title="Home">
+		<img src="media/img/logo.svg" alt="Roomies" class="logo-img"></a>
+	</header>
+
+	<div class = "left-box">
+
+		<p class = "greeting"> Hello, username! </p>
+		
+		<img class = "img" src="profile.jpg" alt="profile picture" style="width:125px;height:125px;" >
+		
+		
+	    	<ul class = "ul">
+	    		<li class = "link-button">Profile</li>
+	    		<br>
+	    		<li class = "links-box"> Settings</li>
+	    		<br>
+	    		<li class = "links-box"> Messages</li>
+	    		<br>
+	    		<li class = "links-box"> Logout</li>
+	    		<br>
+	    	</ul>
+	    </div>
+	</div>
+
+    <div class = "searches"> 
+    	<p class = "titletext">Recent Matches</p> 
+	    <ul class = "search-element">
+	    <li > Whatever #1 </li>
+	    <br>
+	    <li> Whatever #2 </li>
+	    <br>
+		</ul>
+	</div>
+
+    <div class = "reviews"> 
+    	<p class = "titletext"> Popular Accommodation </p>
+    	<ul class = "review-element">
+    		<li> Whitworth Park </li>
+    		<br>
+    		<li> Dalton-Ellis 	</li>
+    		<br>
+    		<li> Burkhardt House</li>
+    	</ul>
+
+    </div>
+</body>
+</html>
+
+
+
+<?php 
+if(isset($_GET['logout']))
+{
+  session_destroy();
+  header("Location: .");
+  exit();
+}
+
+//Check if the user completed their profile
+if(isset($_SESSION['notComplete']))
+{
+	header("Location: complete-register/");
+  exit();
+}
+
+// Check if user has completed their details in $comp boolean
+$id = $_SESSION['user']['id'];
+$stmt = $con->prepare("SELECT completed FROM rdetails WHERE profile_filter_id = $id");
+$stmt->execute();
+$stmt->bindColumn(1, $comp);
+$stmt->fetch();
+
+
+?>
+  <!--Main content-->
+  <div class="main">
+    <?php if(!$comp){include "./complete-register/optionalDetails.php";}?>
+
+    <?php require_once __ROOT__."/inc/html/footer.php";?>
+  </div>
+</body>
+</html>
